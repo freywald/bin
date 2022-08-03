@@ -1,0 +1,76 @@
+#!/bin/bash
+
+alias ls='ls --color=auto'
+
+alias grep='grep --color=auto'
+
+alias fgrep='fgrep --color=auto'
+
+alias egrep='egrep --color=auto'
+
+alias la='ls -A'
+
+alias l='ls -CF'
+alias l1='l'
+
+alias ll='ls -alF'
+alias l2='ll'
+
+alias l3='ls -alFh'
+
+alias dmesg='dmesg -T'
+
+alias h='history'
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias upgrade-system="trap 'set+x' eof;. /etc/lsb-release; sudo apt update -y \
+	&& echo -e \"List of non-dist sources:\n\" && apt list --upgradable 2>&1 | grep -v \"/$DISTRIB_CODENAME\" | grep -v \"Listing...\" | grep -v \"WARNING:\"; \
+	echo -e \"List of dist sources:\n\"; apt list --upgradable 2>&1 | grep  \"/$DISTRIB_CODENAME\" | grep -v \"Listing...\" | grep -v \"WARNING:\"; \
+	echo \"Press any key to update…\"; read t; set -x \
+	&& sudo apt dist-upgrade -y \
+	&& sudo apt autoremove -y \
+	&& sudo apt autoclean -y; \
+	set +x"
+
+alias gksu='pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY'
+
+alias git-pull-remote-branches='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done && git fetch --all && git pull --all'
+
+alias git-list-large-files="git rev-list --objects --all |
+	git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+	sed -n 's/^blob //p' |
+	sort --numeric-sort --key=2 |
+	cut -c 1-12,41- |
+	$(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest"
+
+alias git-destroy-flatten-this-repository-and-erase-history='git add .; git commit -m "..."; echo "STOP NOW. Type FUCKTHISREPOSITORY to continue anyways"; read -r -n 18 -s answer; [[ $answer = FUCKTHISREPOSITORY ]] && git reset $(git commit-tree HEAD^{tree} -m "initial") && git push github master --force'
+
+run() {
+  title="$1"
+  shift
+  command="${@}"
+  rm nohup.out || true
+  nohup bash -c "$command && espeak -m --stdout \"Task completed. <break time='2s'/> ${title} <break time='2s'/> Output <break time='2s'/> \$(cat nohup.out)\" -g 60 -p 80 -s 180 -z | paplay && mv nohup.out $(date +'%d-%m-%Y-%H_%M_%S').log" & disown
+}
+
+alias n='nano'
+
+op() {
+	shopt -s nullglob dotglob
+	local name
+
+	for name in *; do
+		[[ -f "$name" ]] && break
+	done
+
+	nano -- "$name"
+}
+
+e() {
+	if [[ -f "__CMD" ]]; then
+		./__CMD
+	elif [[ -f "__INIT" ]]; then
+		./__INIT
+	fi
+}

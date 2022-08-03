@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for letter in {a..z}; do
+	[[ -e "/dev/sd$letter" ]] && echo -en "/dev/sd$letter:\t" && smartctl -l selftest -- "/dev/sd$letter" | grep -e "# 1" -e "Please specify device type" -e "Self-test Log not supported"
+done

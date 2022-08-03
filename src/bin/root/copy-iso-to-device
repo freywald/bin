@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if (( $# != 2 )); then
+	echo "Usage: $0 <iso image path>.iso /dev/<device path>"
+	exit
+fi
+
+dd bs=16M if="$1.iso" of="/dev/$2" conv=fdatasync status=progress

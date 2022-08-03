@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for letter in {a..z}; do
+	[[ -e "/dev/sd$letter" ]] && smartctl -t long -- "/dev/sd$letter"
+done
+
+get-smart-status

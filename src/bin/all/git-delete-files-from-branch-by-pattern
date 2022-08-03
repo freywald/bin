@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 <pattern | example: \"\*.wav\">"
+	exit
+fi
+
+read -p "Press any key to continue or CTRL-C to abort"
+
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r "$1"' --prune-empty -- --all

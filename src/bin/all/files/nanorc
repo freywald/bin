@@ -1,0 +1,4 @@
+set tabsize 4
+set softwrap
+set linenumbers
+#set nonewlines

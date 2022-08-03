@@ -1,0 +1,75 @@
+#!/bin/bash
+# beeps from https://github.com/ShaneMcC/beeps
+play_warning() {
+	delay=100
+	beep -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 622 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 739 -l "$delay"
+	beep -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 659 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 783
+	local i
+	for i in 1 2; do
+		beep -f 493 -l "$delay" -n -l "$delay" -f 987 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 880 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 830 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 880 -l "$delay" -n -f 493 -l "$delay" -n -l "$delay" -f 830 -l "$delay" -n -f 493 -l "$delay" -n -f 739 -l "$delay" -n -f 493 -l "$delay" -n -f 830 -l "$delay" -n -f 493 -l "$delay" -n -f 659 -l "$delay" -n -f 493 -l "$delay" -n -f 739 -l "$delay" -n -f 492 -l "$delay" -n -f 622 -l "$delay" -n -f 493 -l "$delay" -n -f 659 -l "$delay" -n -f 493 -l "$delay" -n -f 622 -l "$delay" -n -f 493 -l "$delay" -n -f 659 -l "$delay" -n -f 493 -l "$delay" -n -f 622 -l "$delay" -n -f 493 -l "$delay" -n -f 659 -l "$delay" -n -f 493 -l "$delay" -n -f 622 -l "$delay"
+	done
+}
+export -f play_warning
+
+play_critical() {
+	beep -l 350 -f 392 -D 100 -n -l 350 -f 392 -D 100 -n -l 350 -f 392 -D 100 -n -l 250 -f 311.1 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 350 -f 392 -D 100 -n -l 250 -f 311.1 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 700 -f 392 -D 100 -n -l 350 -f 587.32 -D 100 -n -l 350 -f 587.32 -D 100 -n -l 350 -f 587.32 -D 100 -n -l 250 -f 622.26 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 350 -f 369.99 -D 100 -n -l 250 -f 311.1 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 700 -f 392 -D 100 -n -l 350 -f 784 -D 100 -n -l 250 -f 392 -D 100 -n -l 25 -f 392 -D 100 -n -l 350 -f 784 -D 100 -n -l 250 -f 739.98 -D 100 -n -l 25 -f 698.46 -D 100 -n -l 25 -f 659.26 -D 100 -n -l 25 -f 622.26 -D 100 -n -l 50 -f 659.26 -D 400 -n -l 25 -f 415.3 -D 200 -n -l 350 -f 554.36 -D 100 -n -l 250 -f 523.25 -D 100 -n -l 25 -f 493.88 -D 100 -n -l 25 -f 466.16 -D 100 -n -l 25 -f 440 -D 100 -n -l 50 -f 466.16 -D 400 -n -l 25 -f 311.13 -D 200 -n -l 350 -f 369.99 -D 100 -n -l 250 -f 311.13 -D 100 -n -l 25 -f 392 -D 100 -n -l 350 -f 466.16 -D 100 -n -l 250 -f 392 -D 100 -n -l 25 -f 466.16 -D 100 -n -l 700 -f 587.32 -D 100 -n -l 350 -f 784 -D 100 -n -l 250 -f 392 -D 100 -n -l 25 -f 392 -D 100 -n -l 350 -f 784 -D 100 -n -l 250 -f 739.98 -D 100 -n -l 25 -f 698.46 -D 100 -n -l 25 -f 659.26 -D 100 -n -l 25 -f 622.26 -D 100 -n -l 50 -f 659.26 -D 400 -n -l 25 -f 415.3 -D 200 -n -l 350 -f 554.36 -D 100 -n -l 250 -f 523.25 -D 100 -n -l 25 -f 493.88 -D 100 -n -l 25 -f 466.16 -D 100 -n -l 25 -f 440 -D 100 -n -l 50 -f 466.16 -D 400 -n -l 25 -f 311.13 -D 200 -n -l 350 -f 392 -D 100 -n -l 250 -f 311.13 -D 100 -n -l 25 -f 466.16 -D 100 -n -l 300 -f 392.00 -D 150 -n -l 250 -f 311.13 -D 100 -n -l 25 -f 466.16 -D 100 -n -l 700 -f 392
+}
+export -f play_critical
+
+play_dead() {
+	local n
+	for n in 1 2 3 4 5 6 7 8 9 0; do
+		for f in 400 500 600 700 800 900 1000 1100 1200 1300 1400 1500 1600; do
+			beep -f "$f" -l 20
+		done
+	done
+}
+export -f play_dead
+
+warning=0
+critical=0
+dead=0
+
+echo -e "Local Time $(date)\n\n"
+
+for letter in {a..z}; do
+	if [[ -e "/dev/sd$letter" ]]; then
+		echo -en "/dev/sd$letter\t"
+
+		mount="$(findmnt | grep "/dev/sd$letter" | awk '{print $1}')"
+		temperature=$(sudo smartctl -a "/dev/sd$letter" | grep "Temperature_Celsius" | awk '{print $4}')
+
+		if [[ -z $temperature ]]; then
+			temperature="0"
+		else
+			temperature=$( expr "$temperature" + 0 )
+		fi
+
+		if [[ $temperature -ge 55 ]]; then
+			echo -ne "$temperature° DEAD"
+			dead=1
+		elif [[ $temperature -ge 50 ]]; then
+			echo -ne "$temperature° CRITICAL"
+			critical=1
+		elif [[ $temperature -ge 45 ]]; then
+			echo -ne "$temperature° WARNING"
+			warning=1
+		elif [[ $temperature -ge 40 ]]; then
+			echo -ne "$temperature° HIGH"
+		elif [[ $temperature -eq 0 ]]; then
+			echo -ne "$temperature° UNSUPPORTED"
+		else
+			echo -ne "$temperature° OKAY"
+		fi
+
+		echo -en "\t\t$mount\n"
+	fi
+done
+
+if [[ $warning > 0 ]];then
+	seq 1 | xargs -IIIIIIzz timeout 60 bash -c play_warning
+elif [[ $critical > 0 ]];then
+	seq 4 | xargs -IIIIIIzz timeout 60 bash -c play_critical
+elif [[ $dead > 0 ]];then
+	seq 256 | xargs -IIIIIIzz timeout 60 bash -c play_dead
+fi

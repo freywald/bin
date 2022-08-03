@@ -1,0 +1,17 @@
+#!/bin/bash
+
+for file in ./*; do
+	if [ -d "$file" ]; then
+		continue
+  	fi
+
+	s="${file##*/}"
+	t="${s%.*}"
+	if [ -d "$t" ]; then
+		tmp="$(cat "/dev/urandom" | tr -cd 'a-f0-9' | head -c 32)"
+		mv -- "$t" "$t---------------------------------------$tmp"
+  	fi
+
+	mkdir --parents -- "$t"
+	ffmpeg -i "$file" "$t/%04d.png"
+done
