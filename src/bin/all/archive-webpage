@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 <URL>"
+	exit
+fi
+
+wget --adjust-extension --span-hosts --convert-links --backup-converted --page-requisites -e robots=off -- "$1"

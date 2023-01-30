@@ -1,0 +1,6 @@
+.idea
+bash_aliases_*
+IGNORE-*
+user_*
+user@*
+root@*

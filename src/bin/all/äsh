@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if (( $# == 0 )); then
+	echo "Usage: $0 <address/hostname> <command>"
+	exit
+fi
+
+commmand=${2:-/bin/bash}
+echo x $command
+exit
+
+AUTOSSH_FIRST_POLL=5 AUTOSSH_POLL=5 autossh -t -- "$1" "$command"

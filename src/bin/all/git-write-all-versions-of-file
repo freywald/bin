@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 <filename>"
+	exit
+fi
+
+out_directory="$(basename "$1").bin"
+mkdir --parents -- "$out_directory"
+
+mapfile -t commits < <(git log --follow --find-renames --pretty=tformat:"%H:%ad" --date=format:"%Y%m%d%H%M.%S" -- "$1")
+mapfile -t commit_filenames < <(git log --follow --find-renames --pretty=tformat: --name-only -- "$1")
+
+i=0
+for commit_details in "${commits[@]}"; do
+	commit_hash="$(echo $commit_details | cut -d ":" -f 1)"
+	commit_date="$(echo $commit_details | cut -d ":" -f 2)"
+	commit_filename="${commit_filenames[i]}"
+	file_extension="${commit_filename##*.}"
+	file_without_extension="$(basename "${commit_filename%.*}")"
+	out_file="$file_without_extension.$commit_hash.$file_extension"
+
+	echo "$out_file"
+
+	mkdir --parents -- "$out_directory"
+
+	git show "$commit_hash:$commit_filename" > "$out_directory/$out_file"
+	touch -a -m -t "$commit_date" -- "$out_directory/$out_file"
+
+	((i++))
+done

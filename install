@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -euxo pipefail
+shopt -s inherit_errexit
+
+trap 'echo Program failed! Error at line ${LINENO}' ERR
+
+mkdir --parents -- "$HOME/bin"
+
+rsync --archive --perms -- "src/bin/all/" "$HOME/bin"
+if [[ "$USER" == "root" ]]; then
+	if [[ -d "src/bin/root@$HOSTNAME/" ]]; then
+		rsync --archive --perms -- "src/bin/root/" "$HOME/bin"
+		rsync --archive --perms -- "src/bin/root@$HOSTNAME/" "$HOME/bin"
+	else
+		rsync --archive --perms -- "src/bin/root/" "$HOME/bin"
+	fi
+elif [[ -d "src/bin/user_$USER@$HOSTNAME/" ]]; then
+	rsync --archive --perms -- "src/bin/user/" "$HOME/bin"
+	if [[ -d "src/bin/user_$USER/" ]]; then
+		rsync --archive --perms -- "src/bin/user_$USER/" "$HOME/bin"
+	fi
+	rsync --archive --perms -- "src/bin/user_$USER@$HOSTNAME/" "$HOME/bin"
+elif [[ -d "src/bin/user_$USER/" ]]; then
+	rsync --archive --perms -- "src/bin/user/" "$HOME/bin"
+	rsync --archive --perms -- "src/bin/user_$USER/" "$HOME/bin"
+else
+	rsync --archive --perms -- "src/bin/user/" "$HOME/bin"
+fi
+
+if [[ ! -f "$HOME/.dircolors" ]]; then
+	dircolors --print-database -- > "$HOME/.dircolors"
+fi
+
+function link_file_with_backup() {
+	local target_file="$1"
+	local source_file="$2"
+
+	if ! diff "$HOME/$target_file" "$HOME/bin/files/$source_file" &> "/dev/null"; then
+		local i=0
+		local backup_target_filename="$HOME/backup-${i}-${target_file}"
+		while [[ -f "$backup_target_filename" ]]; do
+			i=$((i + 1))
+			backup_target_filename="$HOME/backup-${i}-${target_file}"
+		done
+		[[ -f "$HOME/$target_file" ]] && cp -- "$HOME/$target_file" "$backup_target_filename"
+		ln -nfs -- "$HOME/bin/files/$source_file" "$HOME/$target_file"
+	fi
+}
+
+link_file_with_backup ".bash_aliases" "bash_aliases"
+link_file_with_backup ".bashrc" "bashrc"
+link_file_with_backup ".dircolors" "dircolors"
+link_file_with_backup ".selected_editor" "selected_editor"
+link_file_with_backup ".nanorc" "nanorc"
+
+set +x
+echo -ne "\n\nSUCCESS!\n\nPlease execute step 5 manually.\n"

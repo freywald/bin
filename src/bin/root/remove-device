@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 /dev/<device path>"
+	exit
+fi
+
+sync
+hdparm -y -- "/dev/$1"
+echo "offline" > "/sys/block/$1/device/state"
+echo 1 > "/sys/block/$1/device/delete"

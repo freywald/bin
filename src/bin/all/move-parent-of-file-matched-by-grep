@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if (( $# < 2 )); then
+	echo "Usage: $0 <pattern> <target path>"
+	exit
+fi
+
+mkdir --parents -- "$2"
+
+IFS=$'\n'
+for file in $(find . -type f -exec grep -irl --include '*.description' "$1" {} \;); do
+	file="$(realpath "$file")"
+	directory="$(dirname "$file")"
+	mv --verbose -- "$directory" "$2"
+done
+
+for file in $(find . -type f -exec grep -irl --include '*.json' "$1" {} \;); do
+	file="$(realpath "$file")"
+	directory="$(dirname "$file")"
+	mv --verbose -- "$directory" "$2"
+done

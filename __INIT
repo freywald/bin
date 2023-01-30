@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "on entering directory, this executable script is executed once"

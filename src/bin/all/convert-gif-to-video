@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 <gif file path>"
+	exit
+fi
+
+ffmpeg -i "$1" -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -crf 4 -b:v 2M "${1%.*}.mp4"

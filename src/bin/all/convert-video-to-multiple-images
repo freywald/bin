@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo "Usage: $0 <video file path>"
+	exit
+fi
+
+s="${1##*/}"
+t="${s%.*}"
+mkdir --parents -- "$t"
+ffmpeg -i "$1" "$t/%04d.png"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if (( $# < 1 )); then
+	echo "Usage: $0 <target directory> <directory permissions> <file permissions>"
+	exit
+fi
+
+directory_permissions=${2:-755}
+file_permissions=${3:-644}
+
+set -x
+find "$1" \( -type f -exec chmod "$file_permissions" -- {} + \) , \( -type d -exec chmod "$directory_permissions" -- {} + \)
